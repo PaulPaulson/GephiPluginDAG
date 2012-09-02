@@ -1,0 +1,3 @@
+These Screenshots show the result of three different runs on the same data. The result differ 
+because the order of the nodes is randomized by the initialization of the DAGLayout. Just restart
+the layouting until you are pleased with the result.
