@@ -48,8 +48,8 @@ import org.gephi.graph.api.DirectedGraph;
 import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.EdgeIterable;
 import org.gephi.graph.api.GraphModel;
+import org.gephi.graph.api.GraphView;
 import org.gephi.graph.api.Node;
-import org.gephi.graph.api.NodeData;
 import org.gephi.graph.api.NodeIterable;
 import org.gephi.layout.spi.Layout;
 import org.gephi.layout.spi.LayoutBuilder;
@@ -271,13 +271,13 @@ public class DagLayout implements Layout {
             endX = slot * xDistance;
             endY = layer * yDistance * -1;
 
-            float currentX = node.getNodeData().x();
-            float currentY = node.getNodeData().y();
+            float currentX = node.x();
+            float currentY = node.y();
             float factor = speed;
             float nextX = endX * factor + currentX * (1 - factor);
             float nextY = endY * factor + currentY * (1 - factor);
-            node.getNodeData().setX(nextX);
-            node.getNodeData().setY(nextY);
+            node.setX(nextX);
+            node.setY(nextY);
 
         }
 
@@ -448,12 +448,8 @@ public class DagLayout implements Layout {
         if (node == null) {
             return null;
         }
-        NodeData nodeData = node.getNodeData();
-        if (nodeData == null) {
-            return null;
-        }
 
-        return (DagLayoutData) nodeData.getLayoutData();
+        return (DagLayoutData) node.getLayoutData();
     }
 
     private double getDistanceSum(Node node) {
@@ -498,7 +494,7 @@ public class DagLayout implements Layout {
 
             layoutData.setLayer(0);
 
-            node.getNodeData().setLayoutData(layoutData);
+            node.setLayoutData(layoutData);
         }
         resetUnresolvedInDegree(diGraph);
     }
@@ -512,7 +508,7 @@ public class DagLayout implements Layout {
             // predecessors have to be assigned, which are inDegree many.
             layoutData.setUnresolvedInDegree(diGraph.getInDegree(node));
 
-            node.getNodeData().setLayoutData(layoutData);
+            node.setLayoutData(layoutData);
         }
     }
 }
